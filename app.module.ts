@@ -6,6 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './users/entities/user.entity';
 import { CatalogueModule } from './catalogue/catalogue.module';
 import { AdvertsModule } from './adverts/adverts.module';
+import { GoogleMapsAddressModule } from './google-maps-address/google-maps-address.module';
+import { Catalogue } from './catalogue/entities/catalogue.entity';
+import { LocationModule } from './location/location.module';
+import { Location } from './location/entities/location.entity';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
  
@@ -18,11 +23,15 @@ import { AdvertsModule } from './adverts/adverts.module';
         port: 3306,
         username: 'root',
         password: '',
-        database: 'Bello_plug',
-        entities: [Users],
+        database: 'Bello_plug_v1',
+        entities: [Users, Catalogue, Location],
+        //synchronize: true,
       }),
       CatalogueModule,
       AdvertsModule,
+      GoogleMapsAddressModule,
+      LocationModule,
+      AuthenticationModule,
     ],
 
 })

@@ -1,31 +1,39 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ParseIntPipe, HttpStatus, } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ParseIntPipe, HttpStatus, HttpException, UsePipes, ValidationPipe, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Expose } from 'class-transformer';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @Post('signup')
+  @UsePipes(ValidationPipe)
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
-  @Get(':id')
-  findOne(
-    @Param('id') id: string,
-    // @Req() req: Request,
-    // @Res() res: Response,
-  ) {
-    const user = this.usersService.findOne(+id);
-    if (user!= null) {
-      return user;
-    } else {
-      //return 'User not found';
-      console.log('User not found')
+  // @UseInterceptors(ClassSerializerInterceptor)
+  // @Get(':id')
+  // async findOne(
+  //   @Param('id', ParseIntPipe) id: number) 
+  //   {
+  //   const user = this.usersService.findOneBy(+id);
+  //     if (user) {
+  //       return user;
+  //     }
+  //     else {
+  //       throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
+  //     }
+  // }
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('username')
+  async findOneBy(
+    @Param('username') username: string
+    ){
+      return this.usersService.findUserByUsername(username);
     }
-  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
@@ -33,7 +41,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.usersService.delete(+id);
   }
 }

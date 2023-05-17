@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpException, HttpStatus, ParseIntPipe } from '@nestjs/common';
 import { CatalogueService } from './catalogue.service';
 import { CreateCatalogueDto } from './dto/create-catalogue.dto';
 import { UpdateCatalogueDto } from './dto/update-catalogue.dto';
@@ -7,20 +7,47 @@ import { UpdateCatalogueDto } from './dto/update-catalogue.dto';
 export class CatalogueController {
   constructor(private readonly catalogueService: CatalogueService) {}
 
-  @Post()
+  @Post('add')
+  @UsePipes(ValidationPipe)
   create(@Body() createCatalogueDto: CreateCatalogueDto) {
-    return this.catalogueService.create(createCatalogueDto);
+    return this.catalogueService.createProduct(createCatalogueDto);
   }
 
-  @Get()
-  findAll() {
-    return this.catalogueService.findAll();
+  @Get('products')
+  async findAll() {
+    try{
+      return this.catalogueService.findAll()
+
+    }
+    catch(error) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Bad Request',
+      }, HttpStatus.BAD_GATEWAY, {
+        cause: error
+      });
+    }
+   //return this.catalogueService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.catalogueService.findOne(+id);
-  }
+  async findOne(
+    @Param('id', ParseIntPipe) id: number) 
+    {
+      try{
+        return this.catalogueService.findOne(+id)
+      }
+
+      catch(error) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Cannot find Product',
+        }, HttpStatus.BAD_GATEWAY, {
+          cause: error
+        });
+      }
+    
+    }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCatalogueDto: UpdateCatalogueDto) {
@@ -28,7 +55,7 @@ export class CatalogueController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.catalogueService.remove(+id);
   }
 }
