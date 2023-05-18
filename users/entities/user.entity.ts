@@ -40,6 +40,18 @@ export class Users {
     })
     phonenumber: string
 
+    @Column({
+        name: "DateOfBirth",
+        nullable: false
+    })
+    DOB: string
+
+    @Column({
+        name: 'user_photo',
+        nullable: false
+    })
+    imageUrl: string
+
     constructor(partial: Partial<Users>) {
         Object.assign(this, partial);
     }

@@ -7,15 +7,15 @@ import { UpdateAdvertDto } from './dto/update-advert.dto';
 export class AdvertsController {
   constructor(private readonly advertsService: AdvertsService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createAdvertDto: CreateAdvertDto) {
     return this.advertsService.create(createAdvertDto);
   }
 
-  @Get()
-  findAll() {
-    return this.advertsService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.advertsService.findAll();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

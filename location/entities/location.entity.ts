@@ -1,3 +1,4 @@
+import { Advert } from "src/adverts/entities/advert.entity";
 import { Catalogue } from "src/catalogue/entities/catalogue.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -27,4 +28,8 @@ export class Location {
 
     @OneToMany(() => Catalogue, catalogue => catalogue.location)
     catalogues: Catalogue[];
+
+    @OneToMany(() => Advert, advert => advert.location)
+    adverts: Advert[];
 }
+

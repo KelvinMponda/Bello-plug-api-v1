@@ -11,6 +11,7 @@ import { Catalogue } from './catalogue/entities/catalogue.entity';
 import { LocationModule } from './location/location.module';
 import { Location } from './location/entities/location.entity';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { Advert } from './adverts/entities/advert.entity';
 
 @Module({
  
@@ -24,7 +25,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
         username: 'root',
         password: '',
         database: 'Bello_plug_v1',
-        entities: [Users, Catalogue, Location],
+        entities: [Users, Catalogue, Location, Advert],
         //synchronize: true,
       }),
       CatalogueModule,

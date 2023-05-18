@@ -26,8 +26,8 @@ export class UsersService {
 
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update({ id }, { ...updateUserDto });
+  update(id: number, userDetails: UpdateUserDto) {
+    return this.userRepository.update({ id }, { ...userDetails });
   }
 
   delete(id: number) {

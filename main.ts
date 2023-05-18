@@ -9,15 +9,15 @@ async function bootstrap() {
   
 
   //paste here
-  // const config = new DocumentBuilder()
-  //   .setTitle('Bello-Plug')
-  //   .setDescription('The cats API description')
-  //   .setVersion('1.0')
-  //   .addTag('new ad')
-  //   .addTag('Search')
-  //   .build();
-  // const document = SwaggerModule.createDocument(app, config);
-  // SwaggerModule.setup('api', app, document);
+  const config = new DocumentBuilder()
+    .setTitle('Bello-Plug')
+    .setDescription('An api for an online second-hand clothes selling website')
+    .setVersion('1.0')
+    .addTag('new ad')
+    .addTag('Search')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
 }
