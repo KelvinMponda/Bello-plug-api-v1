@@ -14,8 +14,8 @@ export class LocationController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.locationService.findOne(+id);
+  async findByid(@Param('id', ParseIntPipe) id: string) {
+    return this.locationService.findById(+id);
   }
 
   @Patch(':id')

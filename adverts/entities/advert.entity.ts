@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "src/location/entities/location.entity";
+import { Catalogue } from "src/catalogue/entities/catalogue.entity";
 
 @Entity()
 export class Advert {
@@ -25,18 +26,17 @@ export class Advert {
     @Column({
         nullable: false
     })
-    imageUrl: string;
-
-    @Column({
-        nullable: false
-    })
     category: string;
 
     @Column({
-        nullable: false,
+        type: 'timestamp',
+        default: () => 'CURRENT_TIMESTAMP',
         name: "Created_On"
     })
     date: Date;
+
+    @ManyToOne(() => Catalogue, catalogue => catalogue.adverts)
+    catalogue: Catalogue;
 
     @ManyToOne(() => Location, location => location.adverts)
     location: Location;

@@ -1,9 +1,10 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsLatitude, IsLongitude, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateLocationDto {
     @IsNotEmpty()
     @IsString()
-    locationName: string;
+    @IsLatitude()
+    latitude: string;
 
     @IsNotEmpty()
     @IsString()
@@ -11,5 +12,7 @@ export class CreateLocationDto {
 
     @IsNotEmpty()
     @IsString()
-    address: string;
+    @IsLongitude()
+    longtude: string;
+    
 }

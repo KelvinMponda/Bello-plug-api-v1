@@ -13,21 +13,20 @@ export class Location {
     @Column({
         nullable: false
     })
-    locationName: string;
-
     @Column({
-        name: 'Address',
         nullable: false
     })
-    address: string;
+    latitude: string;
+
+    @Column({
+        nullable: false
+    })
+    longitude: string;
 
     @Column({
         nullable: false
     })
     city: string;
-
-    @OneToMany(() => Catalogue, catalogue => catalogue.location)
-    catalogues: Catalogue[];
 
     @OneToMany(() => Advert, advert => advert.location)
     adverts: Advert[];

@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './entities/user.entity';
-import { UserMiddleware } from './middlewares/users.middleware';
+//import { UserMiddleware } from './middlewares/users.middleware';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Users])],
@@ -14,7 +14,7 @@ import { UserMiddleware } from './middlewares/users.middleware';
 export class UsersModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
       consumer
-      .apply(UserMiddleware)
-      .forRoutes(UsersController)
+      //.apply(UserMiddleware)
+      //.forRoutes(UsersController)
   }
 }

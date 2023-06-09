@@ -31,11 +31,11 @@ export class CatalogueController {
   }
 
   @Get(':id')
-  async findOne(
+  async findById(
     @Param('id', ParseIntPipe) id: number) 
     {
       try{
-        return this.catalogueService.findOne(+id)
+        return this.catalogueService.findById(id)
       }
 
       catch(error) {

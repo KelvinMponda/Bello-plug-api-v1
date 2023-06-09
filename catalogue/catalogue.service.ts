@@ -4,24 +4,36 @@ import { UpdateCatalogueDto } from './dto/update-catalogue.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Catalogue } from './entities/catalogue.entity';
 import { Repository } from 'typeorm';
+//import { Location } from 'src/location/entities/location.entity';
 
 @Injectable()
 export class CatalogueService {
   constructor(
     @InjectRepository(Catalogue)
-    private productRepository: Repository<Catalogue>,
+    private readonly productRepository: Repository<Catalogue>,
+    //private readonly locationRepository: Repository<Location>,
   ){}
 
-  createProduct(Catalogue: CreateCatalogueDto) {
+  
+
+  // async assignLocationToCatalogue(catalogueId: number, locationId: number): Promise<void> {
+  //   const catalogue = await this.productRepository.findOneBy(catalogueId);
+  //   const location = await this.locationRepository.findOne(locationId);
+
+  //   catalogue.location = location;
+  //   await this.productRepository.save(catalogue);
+  // }
+
+  async createProduct(Catalogue: CreateCatalogueDto) {
     const newProduct = this.productRepository.create({...Catalogue})
     return this.productRepository.save(newProduct);
   }
 
-  findAll(): Promise<Catalogue[]>{
-    return this.productRepository.find();
+  async findAll(): Promise<Catalogue[]>{
+    return this.productRepository.find({relations: ['adverts']});
   }
 
-  findOne(id: number): Promise<Catalogue | null> {
+  async findById(id: number): Promise<Catalogue | null> {
     return this.productRepository.findOneBy({ id });
   }
 

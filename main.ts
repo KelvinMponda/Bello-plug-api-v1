@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder,  SwaggerModule } from '@nestjs/swagger';
+import { SwaggerDocumentOptions } from './SwaggerDocumentOptions';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 
 async function bootstrap() {
@@ -13,10 +14,17 @@ async function bootstrap() {
     .setTitle('Bello-Plug')
     .setDescription('An api for an online second-hand clothes selling website')
     .setVersion('1.0')
-    .addTag('new ad')
-    .addTag('Search')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
+
+  const options: SwaggerDocumentOptions =  {
+    operationIdFactory: (
+      controllerKey: string,
+      methodKey: string
+    ) => methodKey
+  };
+
   SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);

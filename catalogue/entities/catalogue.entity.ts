@@ -1,6 +1,7 @@
 import { IsBoolean } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "src/location/entities/location.entity";
+import { Advert } from "src/adverts/entities/advert.entity";
 
 @Entity()
 export class Catalogue {
@@ -40,6 +41,6 @@ export class Catalogue {
     })
     availability: boolean;
 
-    @ManyToOne(() => Location, location => location.catalogues)
-    location: Location;
+    @OneToMany(() => Advert, advert => advert.catalogue)
+    adverts: Advert[];
 }

@@ -28,9 +28,9 @@ export class LocationService {
     }
   }
 
-  findOne(id: number): Promise<Location | null> {
+  async findById(id: number): Promise<Location | null> {
     try{
-      return this.locationRepository.findOneBy({ id });
+      return this.locationRepository.findOneBy( {id} );
     }
     catch(error){
       throw new HttpException({
@@ -42,7 +42,7 @@ export class LocationService {
     }
   }
 
-  update(id: number, locationDetails: UpdateLocationDto) {
+  async update(id: number, locationDetails: UpdateLocationDto) {
     try{
       return this.locationRepository.update({ id }, { ...locationDetails });
     }
