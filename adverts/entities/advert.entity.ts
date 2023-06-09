@@ -29,9 +29,7 @@ export class Advert {
     category: string;
 
     @Column({
-        type: 'timestamp',
-        default: () => 'CURRENT_TIMESTAMP',
-        name: "Created_On"
+        type: 'timestamp'
     })
     date: Date;
 
